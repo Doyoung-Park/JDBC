@@ -1,12 +1,13 @@
 package ex1;
 
+
 import java.sql.SQLException;
 
 import com.newlecture.app.console.NoticeConsole;
 
 public class Program5 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		NoticeConsole console=new NoticeConsole();
 		console.printNoticeList();
 		

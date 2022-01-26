@@ -13,22 +13,22 @@ public class NoticeConsole {
 	public NoticeConsole(){
 		service = new NoticeService(); 
 	}
-	public void printNoticeList() {
+	public void printNoticeList() throws ClassNotFoundException, SQLException {
+		List<Notice> list = service.getList();
+		
+		
 		System.out.println("-----------------------------------");
 		System.out.printf("	   <공지사항> 총 %d게시글\n", 12);
 		System.out.println("-----------------------------------");
 		
-		
+		for(Notice n:list) {
 		System.out.printf("%d. %s / %s / %s\n",
-				12, 
-				"안녕하세요",
-				"newlec",
-				"2020-10-09"
-				);
-		
-		
+				n.getId(), 
+				n.getTitle(),
+				n.getWriterId(),
+				n.getRegDate());
+		}
 		System.out.println("-----------------------------------");
-		
 		System.out.printf("	  %d/%d pages\n", 1,2);
 		
 	}
