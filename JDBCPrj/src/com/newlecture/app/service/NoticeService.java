@@ -18,10 +18,17 @@ public class NoticeService {
 	private String pwd="12345";
 	private String driver="oracle.jdbc.driver.OracleDriver";
 	
-	public List<Notice> getList() throws ClassNotFoundException, SQLException{
+	public List<Notice> getList(int page) throws ClassNotFoundException, SQLException{
 		
+		int start= 1+(page-1)*10; 	// 등차수열 일반항
+		int end= 10*page;
 		
-		String sql = "SELECT * FROM NOTICE";
+		String sql = "SELECT * FROM ("
+				+ "    SELECT ROWNUM NUM, N.* FROM ("
+				+ "        SELECT * FROM NOTICE ORDER BY REGDATE DESC"
+				+ "    ) N "
+				+ ") "
+				+ "WHERE NUM BETWEEN ? AND ?";
 		
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url,uid,pwd);
@@ -29,8 +36,12 @@ public class NoticeService {
 		// 출력의 결과가 테이블처럼 있는 SELECT 쿼리를 사용할 때는
 		// 아래와 같은 코드를 사용함
 		// con.createStatement() & st.executeQuery()
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(sql); 
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setInt(1, start);
+		st.setInt(2, end);
+		
+		ResultSet rs = st.executeQuery(); 
+		
 		
 		List<Notice> list = new ArrayList<Notice>();
 				
