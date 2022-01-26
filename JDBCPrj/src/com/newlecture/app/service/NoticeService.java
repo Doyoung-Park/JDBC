@@ -70,6 +70,30 @@ public class NoticeService {
 		return list;
 	}
 	
+	public int getCount() throws ClassNotFoundException, SQLException {
+		int count=0;
+		
+	String sql = "SELECT COUNT(ID) COUNT FROM NOTICE";
+		
+		Class.forName(driver);
+		Connection con = DriverManager.getConnection(url,uid,pwd);
+		
+		// 출력의 결과가 테이블처럼 있는 SELECT 쿼리를 사용할 때는
+		// 아래와 같은 코드를 사용함
+		// con.createStatement() & st.executeQuery()
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery(sql); 
+		
+		if(rs.next())
+		count=rs.getInt("COUNT");
+		
+		rs.close();
+		st.close();
+		con.close();
+		
+		return count;
+	}
+	
 	public int insert(Notice notice) throws ClassNotFoundException, SQLException {
 		
 		String title=notice.getTitle();
@@ -159,4 +183,6 @@ public class NoticeService {
 		
 		return result;
 	}
+
+
 }
