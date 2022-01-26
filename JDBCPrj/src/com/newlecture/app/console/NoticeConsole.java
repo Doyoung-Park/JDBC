@@ -2,6 +2,7 @@ package com.newlecture.app.console;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 import com.newlecture.app.entity.Notice;
 import com.newlecture.app.service.NoticeService;
@@ -34,8 +35,13 @@ public class NoticeConsole {
 	}
 
 	public int inputNoticeMenu() { 
-		// TODO Auto-generated method stub
-		return 0;
+		Scanner scan=new Scanner(System.in);
+		System.out.printf("1. 상세조회/ 2. 이전/ 3. 다음/ 4. 글쓰기/ 5. 종료>>");
+		String menu_= scan.nextLine();
+		
+		int menu=Integer.parseInt(menu_);
+		
+		return menu;
 	}
 
 }
