@@ -30,7 +30,10 @@ public class Program5 {
 				break;
 			case 4:		// 글쓰기
 				break;
-			case 5:
+			case 5:		// 검색
+				console.inputSearchword();
+				break;
+			case 6:
 				System.out.println("Bye~~");
 				break EXIT;
 			default:
