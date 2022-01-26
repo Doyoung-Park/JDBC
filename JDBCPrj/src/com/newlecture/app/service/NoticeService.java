@@ -21,7 +21,7 @@ public class NoticeService {
 	public List<Notice> getList() throws ClassNotFoundException, SQLException{
 		
 		
-		String sql = "SELECT * FROM NOTICE where hit>10";
+		String sql = "SELECT * FROM NOTICE";
 		
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url,uid,pwd);
