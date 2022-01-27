@@ -11,17 +11,18 @@ public class NoticeConsole {
 
 	private NoticeService service;
 	private int page;
-	private String seachWord;
-	private String searchField;
+	private String searchWord;
+	private String searchField; 
 	
 	public NoticeConsole(){
 		service = new NoticeService(); 
 		page =1;
-		seachWord="";
-		searchField="";
+		searchField="TITLE";
+		searchWord="";
+		
 	}
 	public void printNoticeList() throws ClassNotFoundException, SQLException {
-		List<Notice> list = service.getList(page);
+		List<Notice> list = service.getList(page, searchField,searchWord);
 		int count=service.getCount();
 		int lastPage = count/10;
 		lastPage = count%10 == 0 ? lastPage: lastPage+1;
@@ -81,7 +82,7 @@ public class NoticeConsole {
 		System.out.println(">");
 		searchField = scan.nextLine();
 		System.out.println("°Ë»ö¾î > ");
-		seachWord= scan.nextLine();
+		searchWord= scan.nextLine();
 		
 	}
 

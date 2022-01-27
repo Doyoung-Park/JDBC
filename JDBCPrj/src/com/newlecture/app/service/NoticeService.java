@@ -18,12 +18,12 @@ public class NoticeService {
 	private String pwd="12345";
 	private String driver="oracle.jdbc.driver.OracleDriver";
 	
-	public List<Notice> getList(int page) throws ClassNotFoundException, SQLException{
+	public List<Notice> getList(int page, String field, String query) throws ClassNotFoundException, SQLException{
 		
 		int start= 1+(page-1)*10; 	// 등차수열 일반항
 		int end= 10*page;
 		
-		String sql = "SELECT * FROM NOTICE_VIEW WHERE NUM BETWEEN ? AND ?";
+		String sql = "SELECT * FROM NOTICE_VIEW WHERE "+field+" LIKE ? AND NUM BETWEEN ? AND ?";
 		
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url,uid,pwd);
@@ -32,8 +32,9 @@ public class NoticeService {
 		// 아래와 같은 코드를 사용함
 		// con.createStatement() & st.executeQuery()
 		PreparedStatement st = con.prepareStatement(sql);
-		st.setInt(1, start);
-		st.setInt(2, end);
+		st.setString(1, "%"+query+"%");
+		st.setInt(2, start);
+		st.setInt(3, end);
 		
 		ResultSet rs = st.executeQuery(); 
 		
